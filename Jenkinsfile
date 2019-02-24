@@ -1,14 +1,17 @@
-pipeline {
-    agent any
-
-    stages {
-        stage ('Compile Stage') {
-
-            steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn clean compile'
-                }
-            }
-        }
-       }
+node{
+    stage('SCM Checkout'){
+        
+        git 'https://github.com/senalishalika/JenkinTraining'
     }
+    stage('Initialize'){
+        def dockerHome = tool 'myDocker'
+        def mavenHome  = tool 'myMaven'
+        env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
+        
+    }
+     stage('Compile Stage'){
+         def mavenHome  = tool 'myMaven'
+         echo "${mavenHome}/bin/mvn clean compile"
+    }
+   
+}
