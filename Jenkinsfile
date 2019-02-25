@@ -4,9 +4,9 @@ node{
         git 'https://github.com/senalishalika/JenkinTraining'
     }
     stage('Initialize'){
-        def dockerHome = tool 'myDocker'
+        
         def mavenHome  = tool 'myMaven'
-        env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
+        env.PATH = "${mavenHome}/bin:${env.PATH}"
         
     }
      stage('Compile Stage'){
